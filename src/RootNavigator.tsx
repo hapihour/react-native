@@ -8,13 +8,13 @@ import { useTheme } from "react-native-paper";
 
 const DrawerNavigator = createDrawerNavigator();
 
-export const RootNavigator = () => {
+export const RootNavigator = (props: any) => {
   const theme = useTheme();
   const navigationTheme = theme.dark ? DarkTheme : DefaultTheme;
 
   return (
     <NavigationContainer theme={navigationTheme}>
-      <DrawerNavigator.Navigator drawerContent={() => <DrawerContent />}>
+      <DrawerNavigator.Navigator drawerContent={() => <DrawerContent {...props}/>}>
         <DrawerNavigator.Screen name="Home" component={HomeScreen} />
       </DrawerNavigator.Navigator>
     </NavigationContainer>
