@@ -1,12 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { User } from "./../types";
 import firebase from "firebase";
 
 const defaultUser: User = {
   uid: "",
   facebookId: "",
-  firstName: "",
-  lastName: "",
+  name: "",
   email: "",
   photoUrl: ""
 }
@@ -14,7 +13,6 @@ const defaultUser: User = {
 interface AuthContextInterface {
   // @ts-ignore
   fetchToken: () => Promise.resolve<string>;
-  setUser: (user: User) => void;
   setFirebaseUser: (firebaseUser: firebase.User) => void;
   user: User,
   firebaseUser: firebase.User | undefined
@@ -22,7 +20,6 @@ interface AuthContextInterface {
 
 export const AuthContext = React.createContext<AuthContextInterface>({
   fetchToken: () => Promise.resolve(""),
-  setUser: (_user: User) => {},
   setFirebaseUser: (_firebaseUser: firebase.User) => {},
   user: defaultUser,
   firebaseUser: undefined
@@ -41,9 +38,21 @@ export const Auth: React.FC = ({ children }) => {
     }
   }
 
+  useEffect(() => {
+    if (firebaseUser && firebaseUser.providerData) {
+      const providerData = firebaseUser.providerData[0];
+      setUser({
+        uid: user.uid,
+        facebookId: providerData.uid,
+        name: providerData.displayName,
+        email: providerData.email,
+        photoUrl: providerData.photoURL
+      });
+    }
+  }, [firebaseUser])
+
   const contextValue = {
     fetchToken,
-    setUser,
     setFirebaseUser,
     user,
     firebaseUser

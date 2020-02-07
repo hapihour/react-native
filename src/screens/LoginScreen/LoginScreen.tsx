@@ -9,7 +9,7 @@ import { AuthContext } from "../../context/Auth";
 export const LoginScreen = () => {
   const { appId, appName } = Constants.manifest.extra.facebook;
   const [error, setError] = useState<string>("");
-  const { setUser, setFirebaseUser } = useContext(AuthContext);
+  const { setFirebaseUser } = useContext(AuthContext);
 
   Facebook.initializeAsync(appId, appName);
 
@@ -26,20 +26,8 @@ export const LoginScreen = () => {
   ) => {
     const {
       user,
-      additionalUserInfo
     } = await firebase.auth().signInWithCredential(credential);
-    const { profile } = additionalUserInfo as any;
 
-    const hapiUser: User = {
-      uid: user.uid,
-      facebookId: profile.id,
-      firstName: profile.first_name,
-      lastName: profile.last_name,
-      email: profile.email,
-      photoUrl: user.photoURL
-    };
-
-    setUser(hapiUser);
     setFirebaseUser(user);
   };
 

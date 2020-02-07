@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { View, StyleSheet, ScrollViewProps } from "react-native";
 import { DrawerItem, DrawerContentScrollView } from "@react-navigation/drawer";
 import {
@@ -12,25 +12,30 @@ import {
   Switch
 } from "react-native-paper";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { AuthContext } from "../../context/Auth";
 
 declare type DrawerProps = ScrollViewProps & {
   children: React.ReactNode;
 };
 
 export const DrawerContent = (props: DrawerProps) => {
+  const { user } = useContext(AuthContext);
+
+  const withPhotoUrl = !!user.photoUrl.length;
+
   return (
     <DrawerContentScrollView {...props}>
       <View style={styles.drawerContent}>
         <View style={styles.userInfoSection}>
-          <Avatar.Image
-            source={{
-              uri:
-                "https://pbs.twimg.com/profile_images/952545910990495744/b59hSXUd_400x400.jpg"
-            }}
-            size={50}
-          />
-          <Title style={styles.title}>Dawid Urbaniak</Title>
-          <Caption style={styles.caption}>@trensik</Caption>
+          {withPhotoUrl && (
+            <Avatar.Image
+              source={{
+                uri: user.photoUrl
+              }}
+              size={50}
+            />
+          )}
+          <Title style={styles.title}>{user.name}</Title>
           <View style={styles.row}>
             <View style={styles.section}>
               <Paragraph style={[styles.paragraph, styles.caption]}>
