@@ -1,38 +1,55 @@
-import React, { useState, useEffect } from "react";
-import {validateToken} from "../actions/auth";
+import React, { useState } from "react";
+import { User } from "./../types";
+import firebase from "firebase";
+
+const defaultUser: User = {
+  uid: "",
+  facebookId: "",
+  firstName: "",
+  lastName: "",
+  email: "",
+  photoUrl: ""
+}
 
 interface AuthContextInterface {
+  // @ts-ignore
   fetchToken: () => Promise.resolve<string>;
-  isLoggedIn: boolean;
+  setUser: (user: User) => void;
+  setFirebaseUser: (firebaseUser: firebase.User) => void;
+  user: User,
+  firebaseUser: firebase.User | undefined
 }
 
 export const AuthContext = React.createContext<AuthContextInterface>({
   fetchToken: () => Promise.resolve(""),
-  isLoggedIn: false
+  setUser: (_user: User) => {},
+  setFirebaseUser: (_firebaseUser: firebase.User) => {},
+  user: defaultUser,
+  firebaseUser: undefined
 });
 
-export const Auth: React.FC = ({ children }) => {
-  const [token, setToken] = useState<string>("");
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-  const fetchToken = async () => Promise.resolve(token);
 
-  const fetchInitial = async () => {
-    try {
-      await validateToken(token)
-      setIsLoggedIn(true);
-    } catch {
-      setIsLoggedIn(false);
+export const Auth: React.FC = ({ children }) => {
+  const [user, setUser] = useState<User>(defaultUser);
+  const [firebaseUser, setFirebaseUser] = useState<firebase.User | undefined>(undefined);
+
+  const fetchToken = async () => {
+    if (firebaseUser) {
+      return await firebaseUser.getIdToken();
+    } else {
+      throw new Error('User not initialised');
     }
   }
 
-  useEffect(() => {
-    fetchInitial();
-  }, [])
-
   const contextValue = {
     fetchToken,
-    isLoggedIn,
-  }
+    setUser,
+    setFirebaseUser,
+    user,
+    firebaseUser
+  };
 
-  return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
+  return (
+    <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
+  );
 };

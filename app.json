@@ -25,6 +25,12 @@
     ],
     "ios": {
       "supportsTablet": true
+    },
+    "extra": {
+      "facebook": {
+        "appId": "403034887070377",
+        "appName": "hapihour"
+      }
     }
   }
 }

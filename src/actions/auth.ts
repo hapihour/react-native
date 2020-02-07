@@ -1,3 +1,8 @@
-export const validateToken = async (token: string): Promise<void> => {
-  return Promise.reject("test")
-}
+import { TokenManager } from "../types";
+
+export const validateToken = async (
+  tokenManager: TokenManager
+): Promise<void> => {
+  console.log(`${JSON.stringify(tokenManager)}\n\n`);
+  return Promise.reject("test");
+};
