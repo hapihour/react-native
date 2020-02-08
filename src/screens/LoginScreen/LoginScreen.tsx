@@ -49,7 +49,7 @@ export const LoginScreen = () => {
 
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Button icon="alpha-f-box" mode="contained" onPress={signInWithFacebook}>
+      <Button icon="facebook" mode="contained" onPress={signInWithFacebook}>
         Sign In With Facebook
       </Button>
 

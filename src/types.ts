@@ -7,5 +7,5 @@ export interface User {
 }
 
 export type RootStackParamList = {
-  FeedList: { };
+  Home: { };
 };

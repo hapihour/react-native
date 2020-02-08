@@ -18,7 +18,7 @@ export const StackNavigator = () => {
 
   return (
     <Stack.Navigator
-      initialRouteName="FeedList"
+      initialRouteName="Home"
       headerMode="screen"
       screenOptions={{
         header: ({ scene, previous, navigation }) => {
@@ -57,18 +57,7 @@ export const StackNavigator = () => {
                 </TouchableOpacity>
               )}
               <Appbar.Content
-                title={
-                  title === "Feed" ? (
-                    <MaterialCommunityIcons
-                      style={{ marginRight: 10 }}
-                      name="twitter"
-                      size={40}
-                      color={theme.colors.primary}
-                    />
-                  ) : (
-                    title
-                  )
-                }
+                title={title}
                 titleStyle={{
                   fontSize: 18,
                   fontWeight: "bold",
@@ -81,7 +70,7 @@ export const StackNavigator = () => {
       }}
     >
       <Stack.Screen
-        name="FeedList"
+        name="Home"
         component={BottomTabs}
         options={({ route }) => {
           console.log("!@# options", { route });

@@ -5,14 +5,15 @@ import { useIsFocused } from "@react-navigation/native";
 
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "./types";
-import { HomeScreen } from "./screens/HomeScreen";
-import overlay from "./overlay";
+import { FeedScreen } from "./screens/FeedScreen";
+import { NotificationsScreen } from "./screens/NotificationsScreen/NotificationsScreen";
+import { ProfileScreen } from "./screens/ProfileScreen";
 
 const Tab = createMaterialBottomTabNavigator();
 
 type BottomTabsNavigationProp = StackNavigationProp<
   RootStackParamList,
-  "FeedList"
+  "Home"
 >;
 
 type Props = {
@@ -20,54 +21,42 @@ type Props = {
 };
 
 export const BottomTabs = (props: Props) => {
-  const theme = useTheme();
-
   // Get a name of current screen
   const routeName = props.route.state
     ? props.route.state.routes[props.route.state.index].name
     : "Feed";
 
-  const tabBarColor = theme.dark
-    ? (overlay(6, theme.colors.surface) as string)
-    : theme.colors.surface;
-
   const isFocused = useIsFocused();
-
-  let icon = "feather";
-
-  switch (routeName) {
-    case "Messages":
-      icon = "email-plus-outline";
-      break;
-    default:
-      icon = "feather";
-      break;
-  }
 
   return (
     <React.Fragment>
       <Tab.Navigator initialRouteName="Feed" shifting={true}>
         <Tab.Screen
           name="Feed"
-          component={HomeScreen}
+          component={FeedScreen}
           options={{
             tabBarIcon: "home-account",
-            tabBarColor
           }}
         />
         <Tab.Screen
-          name="Feed2"
-          component={HomeScreen}
+          name="Notifications"
+          component={NotificationsScreen}
           options={{
-            tabBarIcon: "home-account",
-            tabBarColor
+            tabBarIcon: "bell-outline",
+          }}
+        />
+        <Tab.Screen
+          name="Profile"
+          component={ProfileScreen}
+          options={{
+            tabBarIcon: "account",
           }}
         />
       </Tab.Navigator>
       <Portal>
         <FAB
           visible={isFocused}
-          icon={icon}
+          icon="feather"
           style={{
             position: "absolute",
             bottom: 100,

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "./context/Auth";
 import { RootNavigator } from "./RootNavigator";
 import { LoginScreen } from "./screens/LoginScreen";
@@ -9,25 +9,26 @@ import {
   Theme
 } from "react-native-paper";
 import firebase from "firebase";
-import { Preferences, PreferencesContext } from "./context/Preferences";
+import { PreferencesContext } from "./context/Preferences";
 
 export const Main = () => {
   const { setFirebaseUser, firebaseUser } = useContext(AuthContext);
-  const { theme } = useContext(PreferencesContext);
+  const { isDark } = useContext(PreferencesContext);
+  const [paperProviderTheme, setPaperProviderTheme] = useState<Theme>(DefaultTheme);
 
-  let paperProviderTheme: Theme;
-
-  if (theme === "light") {
-    paperProviderTheme = {
-      ...DefaultTheme,
-      colors: { ...DefaultTheme.colors, primary: "#1ba1f2" }
-    };
-  } else {
-    paperProviderTheme = {
-      ...DarkTheme,
-      colors: { ...DarkTheme.colors, primary: "#1ba1f2" }
-    };
-  }
+  useEffect(() => {
+    if (isDark) {
+      setPaperProviderTheme({
+        ...DarkTheme,
+        colors: { ...DarkTheme.colors, primary: "#1ba1f2" }
+      })
+    } else {
+      setPaperProviderTheme({
+        ...DefaultTheme,
+        colors: { ...DefaultTheme.colors, primary: "#1ba1f2" }
+      })
+    }
+  }, [isDark])
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged(async (user?: firebase.User) => {
@@ -46,11 +47,9 @@ export const Main = () => {
   const isLoggedIn = !!firebaseUser;
 
   return isLoggedIn ? (
-    <Preferences>
-      <PaperProvider theme={paperProviderTheme}>
-        <RootNavigator />
-      </PaperProvider>
-    </Preferences>
+    <PaperProvider theme={paperProviderTheme}>
+      <RootNavigator />
+    </PaperProvider>
   ) : (
     <LoginScreen />
   );
