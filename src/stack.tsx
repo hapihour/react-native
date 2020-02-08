@@ -84,7 +84,7 @@ export const StackNavigator = () => {
       <Stack.Screen
         name="NewEvent"
         component={NewEventScreen}
-        options={{ headerTitle: 'New Event' }}
+        options={{ headerTitle: 'Where are you drinking right now?' }}
       />
     </Stack.Navigator>
   );

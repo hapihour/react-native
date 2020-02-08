@@ -46,11 +46,9 @@ export const Main = () => {
 
   const isLoggedIn = !!firebaseUser;
 
-  return isLoggedIn ? (
+  return (
     <PaperProvider theme={paperProviderTheme}>
-      <RootNavigator />
+      {isLoggedIn ? <RootNavigator /> : <LoginScreen />}
     </PaperProvider>
-  ) : (
-    <LoginScreen />
-  );
+  )
 };

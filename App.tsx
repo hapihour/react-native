@@ -5,7 +5,7 @@ import { Main } from "./src/Main";
 import { Auth } from "./src/context/Auth";
 import firebase from "firebase";
 
-import { firebaseConfig } from "./firebaseConfig";
+import { firebaseConfig } from "./src/config";
 import { Preferences } from "./src/context/Preferences";
 firebase.initializeApp(firebaseConfig);
 
