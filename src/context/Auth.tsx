@@ -46,7 +46,7 @@ export const Auth: React.FC = ({ children }) => {
         facebookId: providerData.uid,
         name: providerData.displayName,
         email: providerData.email,
-        photoUrl: providerData.photoURL
+        photoUrl: `${providerData.photoURL}?height=200`
       });
     }
   }, [firebaseUser])

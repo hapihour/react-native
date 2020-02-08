@@ -13,6 +13,7 @@ import {
 } from "react-native-paper";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { AuthContext } from "../../context/Auth";
+import {PreferencesContext} from "../../context/Preferences";
 
 declare type DrawerProps = ScrollViewProps & {
   children: React.ReactNode;
@@ -20,6 +21,7 @@ declare type DrawerProps = ScrollViewProps & {
 
 export const DrawerContent = (props: DrawerProps) => {
   const { user } = useContext(AuthContext);
+  const { theme, toggleTheme } = useContext(PreferencesContext);
 
   const withPhotoUrl = !!user.photoUrl.length;
 
@@ -83,19 +85,11 @@ export const DrawerContent = (props: DrawerProps) => {
           />
         </Drawer.Section>
         <Drawer.Section title="Preferences">
-          <TouchableRipple onPress={() => {}}>
+          <TouchableRipple onPress={toggleTheme}>
             <View style={styles.preference}>
               <Text>Dark Theme</Text>
               <View pointerEvents="none">
-                <Switch value={false} />
-              </View>
-            </View>
-          </TouchableRipple>
-          <TouchableRipple onPress={() => {}}>
-            <View style={styles.preference}>
-              <Text>RTL</Text>
-              <View pointerEvents="none">
-                <Switch value={false} />
+                <Switch value={theme === 'dark'} />
               </View>
             </View>
           </TouchableRipple>

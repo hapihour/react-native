@@ -5,3 +5,7 @@ export interface User {
   email: string,
   photoUrl: string
 }
+
+export type RootStackParamList = {
+  FeedList: { };
+};
