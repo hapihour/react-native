@@ -28,7 +28,7 @@ export const BottomTabs = (props: Props) => {
     : "Feed";
 
   const tabBarColor = theme.dark
-    ? (overlay()(6, theme.colors.surface) as string)
+    ? (overlay(6, theme.colors.surface) as string)
     : theme.colors.surface;
 
   const isFocused = useIsFocused();
