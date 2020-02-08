@@ -56,7 +56,7 @@ export const BottomTabs = (props: Props) => {
       <Portal>
         <FAB
           visible={isFocused}
-          icon="feather"
+          icon="glass-wine"
           style={{
             position: "absolute",
             bottom: 100,
