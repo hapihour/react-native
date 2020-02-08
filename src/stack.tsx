@@ -8,6 +8,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { BottomTabs } from "./bottomTabs";
 import { RootStackParamList } from "./types";
 import { AuthContext } from "./context/Auth";
+import {NewEventScreen} from "./screens/NewEventScreen";
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -79,6 +80,11 @@ export const StackNavigator = () => {
             : "Feed";
           return { headerTitle: routeName };
         }}
+      />
+      <Stack.Screen
+        name="NewEvent"
+        component={NewEventScreen}
+        options={{ headerTitle: 'New Event' }}
       />
     </Stack.Navigator>
   );

@@ -7,5 +7,6 @@ export interface User {
 }
 
 export type RootStackParamList = {
-  Home: { };
+  Home: {}
+  NewEvent: {}
 };

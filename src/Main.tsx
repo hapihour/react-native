@@ -20,12 +20,12 @@ export const Main = () => {
     if (isDark) {
       setPaperProviderTheme({
         ...DarkTheme,
-        colors: { ...DarkTheme.colors, primary: "#ff9800", accent: '#ffc107' }
+        colors: { ...DarkTheme.colors, primary: "#1ba1f2", accent: '#ffc107' }
       })
     } else {
       setPaperProviderTheme({
         ...DefaultTheme,
-        colors: { ...DefaultTheme.colors, primary: "#ff9800", accent: '#ffc107' } 
+        colors: { ...DefaultTheme.colors, primary: "#1ba1f2", accent: '#ffc107' } 
       })
     }
   }, [isDark])

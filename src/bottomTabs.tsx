@@ -63,6 +63,7 @@ export const BottomTabs = (props: Props) => {
             right: 16
           }}
           color="white"
+          onPress={() => props.navigation.push("NewEvent")}
         />
       </Portal>
     </React.Fragment>
