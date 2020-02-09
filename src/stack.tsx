@@ -75,7 +75,7 @@ export const StackNavigator = () => {
         name="Home"
         component={BottomTabs}
         options={({ route }) => {
-          console.log("!@# options", { route });
+          // console.log("!@# options", { route });
           const routeName = route.state
             ? route.state.routes[route.state.index].name
             : "Feed";
@@ -95,7 +95,7 @@ export const StackNavigator = () => {
       <Stack.Screen
         name="ProfilePreview"
         component={ProfilePreviewScreen}
-        options={{ headerTitle: '' }}
+        options={{ headerTitle: 'Preview' }}
       />
     </Stack.Navigator>
   );

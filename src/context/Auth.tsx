@@ -42,7 +42,7 @@ export const Auth: React.FC = ({ children }) => {
     if (firebaseUser && firebaseUser.providerData) {
       const providerData = firebaseUser.providerData[0];
       setUser({
-        uid: user.uid,
+        uid: firebaseUser.uid,
         facebookId: providerData.uid,
         name: providerData.displayName,
         email: providerData.email,

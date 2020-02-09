@@ -13,7 +13,7 @@ export const ProfileHeaderCard = (props: Props) => {
   const theme = useTheme();
   return (
     <Surface
-      style={{ ...styles.container, backgroundColor: theme.colors.background, elevation: 4 }}
+      style={{ ...styles.container, elevation: 4 }}
     >
       <View style={styles.topRow}>
         <Avatar.Image
@@ -39,7 +39,7 @@ export const ProfileHeaderCard = (props: Props) => {
 
 const styles = StyleSheet.create({
   container: {
-    top: 50,
+    marginTop: 80,
     margin: 30,
     padding: 20
   },
