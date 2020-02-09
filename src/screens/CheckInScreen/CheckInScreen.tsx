@@ -37,7 +37,7 @@ export const CheckInScreen = ({ navigation, route }: Props) => {
         <Card.Cover source={{ uri: photoUrl }} />
       </Card>
 
-      <Button mode="contained" onPress={checkInOnPressHandler} loading={isCheckingIn}>
+      <Button mode="contained" onPress={checkInOnPressHandler} loading={isCheckingIn} disabled={isCheckingIn}>
         <Text>Check In</Text>
       </Button>
     </View>

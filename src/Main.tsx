@@ -12,7 +12,7 @@ import firebase from "firebase";
 import { PreferencesContext } from "./context/Preferences";
 
 export const Main = () => {
-  const { setFirebaseUser, user } = useContext(AuthContext);
+  const { setFirebaseUser, algoliaUser } = useContext(AuthContext);
   const { isDark } = useContext(PreferencesContext);
   const [paperProviderTheme, setPaperProviderTheme] = useState<Theme>(DefaultTheme);
 
@@ -44,7 +44,7 @@ export const Main = () => {
     });
   }, []);
 
-  const isLoggedIn = !!user;
+  const isLoggedIn = !!algoliaUser;
 
   return (
     <PaperProvider theme={paperProviderTheme}>

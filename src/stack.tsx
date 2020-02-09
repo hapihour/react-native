@@ -16,7 +16,7 @@ const Stack = createStackNavigator<RootStackParamList>();
 export const StackNavigator = () => {
   const theme = useTheme();
 
-  const { user } = useContext(AuthContext);
+  const { algoliaUser } = useContext(AuthContext);
 
   return (
     <Stack.Navigator
@@ -51,9 +51,7 @@ export const StackNavigator = () => {
                   <Avatar.Image
                     size={40}
                     source={{
-                      uri: user.photoUrl.length
-                        ? user.photoUrl
-                        : "https://pbs.twimg.com/profile_images/952545910990495744/b59hSXUd_400x400.jpg"
+                      uri: `${algoliaUser.photoUrl}?height=200`
                     }}
                   />
                 </TouchableOpacity>

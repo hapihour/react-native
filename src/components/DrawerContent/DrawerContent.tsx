@@ -22,37 +22,33 @@ declare type DrawerProps = ScrollViewProps & {
 };
 
 export const DrawerContent = (props: DrawerProps) => {
-  const { user } = useContext(AuthContext);
+  const { algoliaUser } = useContext(AuthContext);
   const { theme, toggleTheme } = useContext(PreferencesContext);
   const signOutOnPressHandler = async () => {
     await firebase.auth().signOut();
   };
 
-  const withPhotoUrl = !!user.photoUrl.length;
-
   return (
     <DrawerContentScrollView {...props}>
       <View style={styles.drawerContent}>
         <View style={styles.userInfoSection}>
-          {withPhotoUrl && (
-            <Avatar.Image
-              source={{
-                uri: user.photoUrl
-              }}
-              size={50}
-            />
-          )}
-          <Title style={styles.title}>{user.name}</Title>
+          <Avatar.Image
+            source={{
+              uri: `${algoliaUser.photoUrl}?height=200`
+            }}
+            size={50}
+          />
+          <Title style={styles.title}>{algoliaUser.name}</Title>
           <View style={styles.row}>
             <View style={styles.section}>
               <Paragraph style={[styles.paragraph, styles.caption]}>
-                202
+                {algoliaUser.following.length}
               </Paragraph>
               <Caption style={styles.caption}>Following</Caption>
             </View>
             <View style={styles.section}>
               <Paragraph style={[styles.paragraph, styles.caption]}>
-                159
+                {algoliaUser.followers.length}
               </Paragraph>
               <Caption style={styles.caption}>Followers</Caption>
             </View>
@@ -68,24 +64,6 @@ export const DrawerContent = (props: DrawerProps) => {
               />
             )}
             label="Profile"
-            onPress={() => {}}
-          />
-          <DrawerItem
-            icon={({ color, size }) => (
-              <MaterialCommunityIcons name="tune" color={color} size={size} />
-            )}
-            label="Preferences"
-            onPress={() => {}}
-          />
-          <DrawerItem
-            icon={({ color, size }) => (
-              <MaterialCommunityIcons
-                name="bookmark-outline"
-                color={color}
-                size={size}
-              />
-            )}
-            label="Bookmarks"
             onPress={() => {}}
           />
         </Drawer.Section>

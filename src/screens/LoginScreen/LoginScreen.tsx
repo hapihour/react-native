@@ -11,15 +11,18 @@ export const LoginScreen = () => {
   const { appId, appName } = Constants.manifest.extra.facebook;
   const [error, setError] = useState<string>("");
   const { setFirebaseUser } = useContext(AuthContext);
+  const [isLoggingIn, setIsLoggingIn] = useState<boolean>(false);
 
   Facebook.initializeAsync(appId, appName);
 
   const signInWithFacebook = async () => {
+    setIsLoggingIn(true);
     try {
       await signInWithOAuthCredential(await getFirebaseOAuthCredential());
     } catch (e) {
       setError(e.message);
     }
+    setIsLoggingIn(false);
   };
 
   const signInWithOAuthCredential = async (
@@ -60,6 +63,8 @@ export const LoginScreen = () => {
           onPress={signInWithFacebook}
           contentStyle={{ height: 50 }}
           style={{ bottom: -200, backgroundColor: "#4267B2" }}
+          loading={isLoggingIn}
+          disabled={isLoggingIn}
         >
           <Text style={{ color: "white" }}>Sign In With Facebook</Text>
         </Button>
