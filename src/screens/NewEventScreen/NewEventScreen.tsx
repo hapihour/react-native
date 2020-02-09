@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { View, ScrollView } from "react-native";
-import { TextInput, List } from "react-native-paper";
+import { TextInput, List, Button } from "react-native-paper";
 import * as Location from "expo-location";
 import * as Permissions from "expo-permissions";
 import useDebouncedEffect from "use-debounced-effect";
@@ -22,7 +22,7 @@ export const NewEventScreen = (props: Props) => {
   const [currentLocation, setCurrentLocation] = useState<
     Location.LocationData | undefined
   >(undefined);
-
+  const [isSearching, setIsSearching] = useState<boolean>(false);
   const [places, setPlaces] = useState<Place[]>([]);
 
   useEffect(() => {
@@ -38,6 +38,10 @@ export const NewEventScreen = (props: Props) => {
     getLocation();
   }, []);
 
+  useEffect(() => {
+    setIsSearching(false);
+  }, [places]);
+
   useDebouncedEffect(
     () => {
       const runQuery = async () => {
@@ -50,6 +54,14 @@ export const NewEventScreen = (props: Props) => {
     [locationInput]
   );
 
+  const locationInputOnChangeTextHandler = (text) => {
+    if (!isSearching) {
+      setIsSearching(true);
+    }
+
+    setLocationInput(text);
+  }
+
   const placeItemOnPressHandler = (place: Place) => {
     console.log(place);
     props.navigation.push("CheckIn", { place });
@@ -60,19 +72,25 @@ export const NewEventScreen = (props: Props) => {
       <TextInput
         label="Location"
         value={locationInput}
-        onChangeText={text => setLocationInput(text)}
+        onChangeText={locationInputOnChangeTextHandler}
       />
 
-      <ScrollView>
-        {places.map(p => (
-          <List.Item
-            key={p.placeId}
-            title={p.name}
-            description={p.address}
-            onPress={() => placeItemOnPressHandler(p)}
-          />
-        ))}
-      </ScrollView>
+      {isSearching ? (
+        <Button loading={true} onPress={() => {}}>
+          Searching
+        </Button>
+      ) : (
+        <ScrollView>
+          {places.map(p => (
+            <List.Item
+              key={p.placeId}
+              title={p.name}
+              description={p.address}
+              onPress={() => placeItemOnPressHandler(p)}
+            />
+          ))}
+        </ScrollView>
+      )}
     </View>
   );
 };

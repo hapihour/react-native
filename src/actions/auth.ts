@@ -5,8 +5,6 @@ const { apiHost } = apiConfig;
 
 export const setUserPushToken = async (token: string, pushToken: string): Promise<void> => {
   const url = `${apiHost}/user-push-token`;
-  console.log(url);
-  console.log(token);
 
   const res = await fetch(url, {
     headers: buildHeaders(token),
