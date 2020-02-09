@@ -1,13 +1,12 @@
 {
   "expo": {
-    "name": "Blank Template (TypeScript)",
-    "slug": "expo-app",
+    "name": "HapiHour",
+    "slug": "hapihour",
     "privacy": "public",
     "sdkVersion": "36.0.0",
     "platforms": [
       "ios",
       "android",
-      "web"
     ],
     "version": "1.0.0",
     "orientation": "portrait",
@@ -24,7 +23,11 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": false,
+      "bundleIdentifier": "com.hapihourapp.hapihour"
+    },
+    "android": {
+      "package": "com.hapihourapp.hapihour"
     },
     "extra": {
       "facebook": {

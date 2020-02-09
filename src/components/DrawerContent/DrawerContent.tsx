@@ -9,11 +9,13 @@ import {
   Drawer,
   Text,
   TouchableRipple,
-  Switch
+  Switch,
+  Button
 } from "react-native-paper";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { AuthContext } from "../../context/Auth";
-import {PreferencesContext} from "../../context/Preferences";
+import { PreferencesContext } from "../../context/Preferences";
+import firebase from "firebase";
 
 declare type DrawerProps = ScrollViewProps & {
   children: React.ReactNode;
@@ -22,6 +24,9 @@ declare type DrawerProps = ScrollViewProps & {
 export const DrawerContent = (props: DrawerProps) => {
   const { user } = useContext(AuthContext);
   const { theme, toggleTheme } = useContext(PreferencesContext);
+  const signOutOnPressHandler = async () => {
+    await firebase.auth().signOut();
+  };
 
   const withPhotoUrl = !!user.photoUrl.length;
 
@@ -89,8 +94,15 @@ export const DrawerContent = (props: DrawerProps) => {
             <View style={styles.preference}>
               <Text>Dark Theme</Text>
               <View pointerEvents="none">
-                <Switch value={theme === 'dark'} />
+                <Switch value={theme === "dark"} />
               </View>
+            </View>
+          </TouchableRipple>
+        </Drawer.Section>
+        <Drawer.Section>
+          <TouchableRipple onPress={signOutOnPressHandler}>
+            <View style={styles.preference}>
+              <Text style={{ color: "red" }}>Sign Out</Text>
             </View>
           </TouchableRipple>
         </Drawer.Section>
