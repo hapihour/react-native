@@ -11,6 +11,9 @@ export type RootStackParamList = {
   NewEvent: {},
   CheckIn: {
     place: Place
+  },
+  ProfilePreview: {
+    userId: string
   }
 };
 

@@ -1,11 +1,12 @@
-import React from 'react';
-import { View } from 'react-native';
-import { Text } from "react-native-paper";
+import React, {useContext} from 'react';
+import {AuthContext} from '../../context/Auth';
+import {UserEvents} from '../../components/UserEvents';
 
 export const ProfileScreen = () => {
+  const { firebaseUser } = useContext(AuthContext);
+  console.log(`PROFILE SCREEN -- ${firebaseUser.uid}`);
+
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Profile Screen</Text>
-    </View>
+    <UserEvents userId={firebaseUser.uid} />
   );
 }

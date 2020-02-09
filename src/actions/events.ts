@@ -39,7 +39,7 @@ export const fetchAlgoliaEvents = async ({
   }
 
   if (userId) {
-    options['filters'] = `userId:${userId}`
+    options['filters'] = `userId:"${userId}"`
   }
 
   return (await index.search<AlgoliaEvent>('', options)).hits.map(h => h)

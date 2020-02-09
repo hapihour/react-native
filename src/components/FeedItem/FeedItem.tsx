@@ -18,7 +18,7 @@ dayjs.extend(relativeTime);
 
 interface FeedProps {
   algoliaEvent: AlgoliaEvent,
-  onPress: (id: string) => void;
+  onPress: (id: AlgoliaEvent) => void;
 }
 
 export const FeedItem = ({ algoliaEvent, onPress }: FeedProps) => {
@@ -32,17 +32,17 @@ export const FeedItem = ({ algoliaEvent, onPress }: FeedProps) => {
   const formattedCreatedAt = dayjs(algoliaEvent.createdAtTimestamp).fromNow();
 
   return (
-    <TouchableRipple onPress={() => onPress(algoliaEvent.id)}>
+    <TouchableRipple onPress={() => onPress(algoliaEvent)}>
       <Surface style={styles.container}>
         <View style={styles.leftColumn}>
           <Avatar.Image source={{ uri: `${algoliaEvent.userPhotoUrl}?height=200` }} size={60} />
         </View>
         <View style={styles.rightColumn}>
           <View style={styles.topRow}>
-            <Title style={styles.name}>{algoliaEvent.userName}</Title>
+            <Title style={styles.name}>{algoliaEvent.placeName}</Title>
             <Caption>{formattedCreatedAt}</Caption>
           </View>
-          <Text style={{ color: contentColor }}>{algoliaEvent.placeName}</Text>
+          <Text style={{ color: contentColor }}>{algoliaEvent.userName}</Text>
         </View>
       </Surface>
     </TouchableRipple>
@@ -64,6 +64,7 @@ const styles = StyleSheet.create({
   topRow: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between'
   },
   name: {
     marginRight: 5
