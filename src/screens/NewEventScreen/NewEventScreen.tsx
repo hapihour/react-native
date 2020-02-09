@@ -63,7 +63,6 @@ export const NewEventScreen = (props: Props) => {
   }
 
   const placeItemOnPressHandler = (place: Place) => {
-    console.log(place);
     props.navigation.push("CheckIn", { place });
   };
 

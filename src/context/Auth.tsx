@@ -59,7 +59,19 @@ export const Auth: React.FC = ({ children }) => {
 
   const refreshAlgoliaUser = async () => {
     if (user) {
-      setAlgoliaUser(await fetchAlgoliaUser(user.uid));
+      const algliaUserToSet = await fetchAlgoliaUser(user.uid);
+
+      if (algliaUserToSet) {
+        setAlgoliaUser(algliaUserToSet);
+      } else {
+        setAlgoliaUser({
+          id: user.uid,
+          name: user.name,
+          photoUrl: user.photoUrl,
+          following: [],
+          followers: []
+        });
+      }
     } else {
       setAlgoliaUser(undefined);
     }
