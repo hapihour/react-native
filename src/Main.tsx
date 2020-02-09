@@ -12,7 +12,7 @@ import firebase from "firebase";
 import { PreferencesContext } from "./context/Preferences";
 
 export const Main = () => {
-  const { setFirebaseUser, firebaseUser } = useContext(AuthContext);
+  const { setFirebaseUser, user } = useContext(AuthContext);
   const { isDark } = useContext(PreferencesContext);
   const [paperProviderTheme, setPaperProviderTheme] = useState<Theme>(DefaultTheme);
 
@@ -31,20 +31,20 @@ export const Main = () => {
   }, [isDark])
 
   useEffect(() => {
-    firebase.auth().onAuthStateChanged(async (user?: firebase.User) => {
-      if (user) {
+    firebase.auth().onAuthStateChanged(async (firebaseUser?: firebase.User) => {
+      if (firebaseUser) {
         // Helpful for debugging API calls
         const token = await firebase.auth().currentUser.getIdToken();
         console.log(token);
 
-        setFirebaseUser(user);
+        setFirebaseUser(firebaseUser);
       } else {
         setFirebaseUser(undefined);
       }
     });
   }, []);
 
-  const isLoggedIn = !!firebaseUser;
+  const isLoggedIn = !!user;
 
   return (
     <PaperProvider theme={paperProviderTheme}>

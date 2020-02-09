@@ -4,7 +4,7 @@ import { View, FlatList, RefreshControl } from "react-native";
 import { FeedItem } from "../../components/FeedItem";
 import { fetchAlgoliaEvents } from "../../actions/events";
 import { AlgoliaEvent } from "../../types";
-import {UserEventItem} from "../UserEventItem";
+import { UserEventItem } from "../UserEventItem";
 
 type UserEventsProps = {
   userId: string;
@@ -17,9 +17,7 @@ export const UserEvents = ({ userId }: UserEventsProps) => {
 
   useEffect(() => {
     (async () => {
-      const events = await fetchAlgoliaEvents({ page, userId });
-
-      setAlgoliaEvents(events);
+      setAlgoliaEvents(await fetchAlgoliaEvents({ page, userId }));
     })();
   }, [userId]);
 

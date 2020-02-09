@@ -9,13 +9,14 @@ import { Notifications } from 'expo';
 import * as Permissions from 'expo-permissions';
 import {setUserPushToken} from "./actions/auth";
 import {AuthContext} from "./context/Auth";
+import { fetchAlgoliaUser } from "./actions/users";
 
 const Drawer = createDrawerNavigator();
 
 export const RootNavigator = () => {
   const theme = useTheme();
   const navigationTheme = theme.dark ? DarkTheme : DefaultTheme;
-  const { fetchToken } = useContext(AuthContext);
+  const { fetchToken, refreshAlgoliaUser } = useContext(AuthContext);
 
   useEffect(() => {
     (async () => {

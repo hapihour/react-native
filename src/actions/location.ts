@@ -47,7 +47,7 @@ const searchForPubsWithLocation = async (
 ): Promise<Place[]> => {
   const { apiKey } = googleConfig;
   const locationText = `${location.coords.latitude},${location.coords.longitude}`;
-  const radiusMeters = "1000";
+  const radiusMeters = "200";
   const placeType = "bar";
   const url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${locationText}&radius=${radiusMeters}&type=${placeType}&keyword=${query}&key=${apiKey}`;
 

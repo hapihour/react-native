@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { UserEvents } from "../../components/UserEvents";
-import { RootStackParamList, User } from "../../types";
-import { StackNavigationProp } from "@react-navigation/stack";
-import { RouteProp } from "@react-navigation/native";
+import { RootStackParamList, AlgoliaUser } from "../../types";
+import { RouteProp, useFocusEffect } from "@react-navigation/native";
 import { View } from "react-native";
 import { ProfileHeaderCard } from "../../components/ProfileHeaderCard";
 import { fetchAlgoliaUser } from "../../actions/users";
@@ -13,18 +12,25 @@ type Props = {
 
 export const ProfilePreviewScreen = ({ route }: Props) => {
   const { userId } = route.params;
-  const [user, setUser] = useState<User | undefined>(undefined);
+  const [user, setUser] = useState<AlgoliaUser | undefined>(undefined);
 
-  useEffect(() => {
-    (async () => {
-      setUser(await fetchAlgoliaUser(userId));
-    })();
-  }, [userId]);
+  useFocusEffect(
+    React.useCallback(() => {
+      (async () => {
+        setUser(await fetchAlgoliaUser(userId));
+      })();
+    }, [])
+  );
 
   if (user) {
     return (
       <View>
-        <ProfileHeaderCard name={user.name} photoUrl={`${user.photoUrl}?height=200`} />
+        <ProfileHeaderCard
+          name={user.name}
+          photoUrl={`${user.photoUrl}?height=200`}
+          following={user.following.length}
+          followers={user.followers.length}
+        />
         <UserEvents userId={userId} />
       </View>
     );

@@ -6,8 +6,8 @@ import { useIsFocused, RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "./types";
 import { FeedScreen } from "./screens/FeedScreen";
-import { NotificationsScreen } from "./screens/NotificationsScreen/NotificationsScreen";
 import { ProfileScreen } from "./screens/ProfileScreen";
+import {UserListScreen} from "./screens/UserListScreen";
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -31,6 +31,13 @@ export const BottomTabs = (props: Props) => {
     <React.Fragment>
       <Tab.Navigator initialRouteName="Feed" shifting={true}>
         <Tab.Screen
+          name="UserList"
+          component={UserListScreen}
+          options={{
+            tabBarIcon: "account-multiple"
+          }}
+        />
+        <Tab.Screen
           name="Feed"
           component={FeedScreen}
           options={{
@@ -38,17 +45,10 @@ export const BottomTabs = (props: Props) => {
           }}
         />
         <Tab.Screen
-          name="Notifications"
-          component={NotificationsScreen}
-          options={{
-            tabBarIcon: "bell-outline"
-          }}
-        />
-        <Tab.Screen
           name="Profile"
           component={ProfileScreen}
           options={{
-            tabBarIcon: "account"
+            tabBarIcon: "emoticon-cool-outline"
           }}
         />
       </Tab.Navigator>

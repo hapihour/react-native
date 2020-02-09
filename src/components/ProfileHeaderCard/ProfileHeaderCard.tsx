@@ -7,29 +7,30 @@ import { useTheme } from "@react-navigation/native";
 type Props = {
   name: string;
   photoUrl: string;
+  following: number;
+  followers: number;
 };
 
-export const ProfileHeaderCard = (props: Props) => {
-  const theme = useTheme();
+export const ProfileHeaderCard = ({ name, photoUrl, following, followers }: Props) => {
   return (
     <Surface
       style={{ ...styles.container, elevation: 4 }}
     >
       <View style={styles.topRow}>
         <Avatar.Image
-          source={{ uri: props.photoUrl }}
+          source={{ uri: photoUrl }}
           size={80}
           style={styles.avatar}
         />
-        <Title style={styles.name}>{props.name}</Title>
+        <Title style={styles.name}>{name}</Title>
       </View>
       <View style={styles.bottomRow}>
         <View style={styles.section}>
-          <Paragraph style={styles.paragraph}>202</Paragraph>
+          <Paragraph style={styles.paragraph}>{following}</Paragraph>
           <Caption>Following</Caption>
         </View>
         <View style={styles.section}>
-          <Paragraph style={styles.paragraph}>159</Paragraph>
+          <Paragraph style={styles.paragraph}>{followers}</Paragraph>
           <Caption>Followers</Caption>
         </View>
       </View>

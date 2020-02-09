@@ -6,9 +6,18 @@ export interface User {
   photoUrl: string
 }
 
+export interface AlgoliaUser {
+  id: string,
+  name: string,
+  photoUrl: string,
+  following: string[],
+  followers: string[]
+}
+
 export type RootStackParamList = {
   Home: {},
   NewEvent: {},
+  UserList: {},
   CheckIn: {
     place: Place
   },
