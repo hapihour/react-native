@@ -1,7 +1,7 @@
 import React from "react";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
-import { Portal, FAB, useTheme } from "react-native-paper";
-import { useIsFocused } from "@react-navigation/native";
+import { Portal, FAB } from "react-native-paper";
+import { useIsFocused, RouteProp } from "@react-navigation/native";
 
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "./types";
@@ -11,13 +11,12 @@ import { ProfileScreen } from "./screens/ProfileScreen";
 
 const Tab = createMaterialBottomTabNavigator();
 
-type BottomTabsNavigationProp = StackNavigationProp<
-  RootStackParamList,
-  "Home"
->;
+type BottomTabsNavigationProp = StackNavigationProp<RootStackParamList, "Home">;
+type BottomTabsRouteProp = RouteProp<RootStackParamList, 'Home'>;
 
 type Props = {
   navigation: BottomTabsNavigationProp;
+  route: BottomTabsRouteProp;
 };
 
 export const BottomTabs = (props: Props) => {
@@ -35,21 +34,21 @@ export const BottomTabs = (props: Props) => {
           name="Feed"
           component={FeedScreen}
           options={{
-            tabBarIcon: "home-account",
+            tabBarIcon: "home-account"
           }}
         />
         <Tab.Screen
           name="Notifications"
           component={NotificationsScreen}
           options={{
-            tabBarIcon: "bell-outline",
+            tabBarIcon: "bell-outline"
           }}
         />
         <Tab.Screen
           name="Profile"
           component={ProfileScreen}
           options={{
-            tabBarIcon: "account",
+            tabBarIcon: "account"
           }}
         />
       </Tab.Navigator>

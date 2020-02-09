@@ -7,8 +7,11 @@ export interface User {
 }
 
 export type RootStackParamList = {
-  Home: {}
-  NewEvent: {}
+  Home: {},
+  NewEvent: {},
+  CheckIn: {
+    place: Place
+  }
 };
 
 export interface FindPlaceFromTextSearchResult {
@@ -54,4 +57,23 @@ export interface Place {
   priceLevel?: number,
   rating?: number,
   userRatingsTotal?: number
+}
+
+export interface Event {
+  id: string,
+  placeId: string,
+  userId: string,
+  createdAt: string
+}
+
+export type AlgoliaEvent = {
+  id: string,
+  placeId: string,
+  userId: string,
+  placeName: string,
+  userName: string,
+  userPhotoUrl: string,
+  vicinity: string,
+  createdAt: string,
+  createdAtTimestamp: number
 }

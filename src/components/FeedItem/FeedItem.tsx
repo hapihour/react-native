@@ -10,18 +10,18 @@ import {
   useTheme,
 } from 'react-native-paper';
 import color from 'color';
+import {AlgoliaEvent} from '../../types';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime'
+
+dayjs.extend(relativeTime);
 
 interface FeedProps {
-  id: string,
-  avatar: string,
-  name: string;
-  handle: string;
-  date: string;
-  content: string;
+  algoliaEvent: AlgoliaEvent,
   onPress: (id: string) => void;
 }
 
-export const FeedItem = (props: FeedProps) => {
+export const FeedItem = ({ algoliaEvent, onPress }: FeedProps) => {
   const theme = useTheme();
 
   const contentColor = color(theme.colors.text)
@@ -29,19 +29,20 @@ export const FeedItem = (props: FeedProps) => {
     .rgb()
     .string();
 
+  const formattedCreatedAt = dayjs(algoliaEvent.createdAtTimestamp).fromNow();
+
   return (
-    <TouchableRipple onPress={() => props.onPress(props.id)}>
+    <TouchableRipple onPress={() => onPress(algoliaEvent.id)}>
       <Surface style={styles.container}>
         <View style={styles.leftColumn}>
-          <Avatar.Image source={{ uri: props.avatar }} size={60} />
+          <Avatar.Image source={{ uri: `${algoliaEvent.userPhotoUrl}?height=200` }} size={60} />
         </View>
         <View style={styles.rightColumn}>
           <View style={styles.topRow}>
-            <Title style={styles.name}>{props.name}</Title>
-            <Caption style={styles.handle}>{props.handle}</Caption>
-            <Caption>{props.date}</Caption>
+            <Title style={styles.name}>{algoliaEvent.userName}</Title>
+            <Caption>{formattedCreatedAt}</Caption>
           </View>
-          <Text style={{ color: contentColor }}>{props.content}</Text>
+          <Text style={{ color: contentColor }}>{algoliaEvent.placeName}</Text>
         </View>
       </Surface>
     </TouchableRipple>

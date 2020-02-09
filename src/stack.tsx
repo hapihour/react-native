@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { TouchableOpacity } from "react-native";
-import { createStackNavigator } from "@react-navigation/stack";
+import { createStackNavigator, TransitionPresets } from "@react-navigation/stack";
 import { DrawerNavigationProp } from "@react-navigation/drawer";
 import { Appbar, Avatar, useTheme } from "react-native-paper";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -9,6 +9,7 @@ import { BottomTabs } from "./bottomTabs";
 import { RootStackParamList } from "./types";
 import { AuthContext } from "./context/Auth";
 import {NewEventScreen} from "./screens/NewEventScreen";
+import {CheckInScreen} from "./screens/CheckInScreen";
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -84,7 +85,12 @@ export const StackNavigator = () => {
       <Stack.Screen
         name="NewEvent"
         component={NewEventScreen}
-        options={{ headerTitle: 'Where are you drinking right now?' }}
+        options={{ headerTitle: 'Where are you drinking right now?'}}
+      />
+      <Stack.Screen
+        name="CheckIn"
+        component={CheckInScreen}
+        options={{ headerTitle: 'Check In' }}
       />
     </Stack.Navigator>
   );
